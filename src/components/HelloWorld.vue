@@ -1,36 +1,46 @@
 <template>
-  <div class="hello">
-    <h1>{{msg}}</h1>
-    
+  <div>
+      <button @click="getitem">test</button>
+<br>
+      word : {{word}} 
+      <br>
+      mean : {{mean}}
+      <br>
+      partOfSpeech : {{partOfSpeech}}
   </div>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
-  components:{
-   
-  }
+    data(){
+        return{
+            word:'',
+            mean:'',
+            partOfSpeech:''
+
+        }
+
+        
+    },
+
+    methods:{
+        getitem(){
+            axios.get('https://api.dictionaryapi.dev/api/v2/entries/en/hello')
+            .then(res => {
+                this.word = res.data[0].word
+                this.mean = res.data[0].meanings[0].definitions[0].definition
+                this.partOfSpeech = res.data[0].meanings[0].partOfSpeech
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.error(err); 
+            })
+        }
+    }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
+<style>
+
 </style>

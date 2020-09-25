@@ -1,24 +1,29 @@
 <template>
   <div class="containr">
-    <!-- <input type="text" v-model="keyword" /> -->
-    <button class="btn btn-outline-warning " @click="searchData()">Search </button>
-    {{result}} 
-
-     
+    <input type="text" v-model="keyword" />
+    <button class="btn btn-outline-warning" @click="search()">Search</button>
+    <!-- <br />
+    word : {{ word }}
+    <br />
+    mean : {{ mean }}
+    <br />
+    partOfSpeech : {{ partOfSpeech }} -->
+    <div class="row">
+      <div class="col-md-10 box"> 
         <b-card
-          v-if = "result" 
-          :title="result.word"
+          :title="word"
+          :sub-title="partOfSpeech"
+          style="max-width: 50rem"
           tag="article"
-          style="max-width: 20rem;"
-          class="mb-2"
+          class="mb-2 mt-5" 
         >
-          <b-card-text>{{data.meanings.definitions.definition}}</b-card-text> 
-
-          <b-button href="data.url" variant="primary">Go somewhere</b-button>
+          <b-card-text>
+            {{ mean }}
+          </b-card-text>
+          <!-- <b-link href="#" class="card-link">Another link</b-link> -->
         </b-card>
-       
+      </div>
     </div>
-   
   </div>
 </template>
 
@@ -27,20 +32,24 @@ import axios from "axios";
 export default {
   data() {
     return {
-      result: null,
+      word: "",
+      mean: "",
+      partOfSpeech: "",
       keyword: "",
     };
   },
   methods: {
-    searchData() {
+    search() {
       axios
-        .get("https://api.dictionaryapi.dev/api/v2/entries/en/hello" )
-        .then((response) => {
-          this.result = response.data;
-           console.log(this.result);
+        .get("https://api.dictionaryapi.dev/api/v2/entries/en/" + this.keyword)
+        .then((res) => {
+          this.word = res.data[0].word;
+          this.mean = res.data[0].meanings[0].definitions[0].definition;
+          this.partOfSpeech = res.data[0].meanings[0].partOfSpeech;
+          console.log(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     },
   },
@@ -48,4 +57,7 @@ export default {
 </script>
 
 <style>
+.box {
+  margin-left: auto;
+}
 </style>

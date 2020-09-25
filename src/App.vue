@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/h3.png">
-    <HelloWorld msg="Welcome to Your Dictionary Search"/>
+    <img alt="Vue logo" src="./assets/h3.png">    
+    <!-- <HelloWorld msg="Welcome to Your Dictionary Search"/>  -->
+    <h1>Welcome to Your Dictionary Search</h1>
     <anime />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Anime from'./components/Anime.vue'
+import Anime from'./components/Anime'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     Anime
   }
 }
