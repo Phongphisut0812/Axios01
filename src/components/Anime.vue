@@ -2,12 +2,6 @@
   <div class="containr">
     <input type="text" v-model="keyword" />
     <button class="btn btn-outline-warning" @click="search()">Search</button>
-    <!-- <br />
-    word : {{ word }}
-    <br />
-    mean : {{ mean }}
-    <br />
-    partOfSpeech : {{ partOfSpeech }} -->
     <div class="row">
       <div class="col-md-10 box"> 
         <b-card
